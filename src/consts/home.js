@@ -1,161 +1,72 @@
-export const shapes = [
+export const erros = [
   {
-    name: 'circulo',
-    label: 'círculo',
-    path: 'circulo-pequeno',
-    pathBig: 'circulo-grande'
+    id: 0,
+    name: 'escada',
+    isFind: false,
+    title: 'ESCADA SEM TELA',
+    image: 'popupescada',
+    circulo: 'c-escada',
+    text:
+      'Uma escada pode ser um perigo se uma criança cair pelas laterais! O ideal é colocarmos telas para impedir que isso aconteça, muito bem!'
   },
   {
-    name: 'triangulo',
-    label: 'triângulo',
-    path: 'triangulo-pequeno',
-    pathBig: 'triangulo-grande'
+    id: 1,
+    name: 'mesa',
+    isFind: false,
+    image: 'popupfaca',
+    circulo: 'c-mesa',
+    title: 'FACAS NA MESA',
+    text:
+      'OLHA SÓ ESSAS PONTAS! CUIDADO! NÃO DEVEMOS DEIXAR FACAS POR AÍ. ELAS SÃO AFIADAS E PODEM CORTAR. DEIXE-AS SEMPRE GUARDADAS NAS GAVETAS.'
   },
   {
-    name: 'quadrado',
-    label: 'quadrado',
-    path: 'quadrado-pequeno',
-    pathBig: 'quadrado-grande'
+    id: 2,
+    name: 'balde',
+    isFind: false,
+    title: 'BALDE NO CHÃO',
+    image: 'popupbalde',
+    circulo: 'c-balde',
+    text:
+      'CUIDADO, CUIDADO! UM BALDE NO CHÃO É UM RISCO DE TOMBO! ALÉM DO QUÊ SE TIVEREM MATERIAIS DE LIMPEZA, ALGUMA CRIANÇA OU BICHINHO PODEM BEBER SEM QUERER! BOA OBSERVAÇÃO!'
   },
   {
-    name: 'triangulo-isosceles',
-    label: 'triângulo isósceles',
-    path: 'triangulo-isosceles-pequeno',
-    pathBig: 'triangulo-isosceles-grande'
+    id: 3,
+    name: 'remedios',
+    isFind: false,
+    title: 'CAIXA DE REMÉDIO',
+    image: 'popupremedio',
+    circulo: 'c-remedios',
+    text:
+      'NÃO PODEMOS DEIXAR CAIXAS DE REMÉDIO ONDE UMA CRIANÇA PODE MEXER. ELAS PODEM ENGOLIR ALGUMA COISA QUE NÃO DEVERIAM. DEVEMOS DEIXAR FECHADO E FORA DO ALCANCE. BEM NOTADO!'
   },
   {
-    name: 'retangulo',
-    label: 'retângulo',
-    path: 'retangulo-pequeno',
-    pathBig: 'retangulo-grande'
+    id: 4,
+    name: 'gaveta',
+    isFind: false,
+    title: 'MATERIAL DE COSTURA',
+    image: 'popupcostura',
+    circulo: 'c-agulhas',
+    text:
+      'AGULHAS E ALFINETES! TÃO PONTIAGUDAS E PERIGOSAS! PEÇA AOS ADULTOS PARA DEIXAR OBJETOS ASSIM LONGE DO ALCANCE DAS CRIANÇAS POIS, SE FURAR, AI! DÓI MUITO!'
   },
   {
-    name: 'pentagono',
-    label: 'pentágono',
-    path: 'pentagono-pequeno',
-    pathBig: 'pentagono-grande'
+    id: 5,
+    name: 'tesoura',
+    isFind: false,
+    title: 'TESOURA NA MESA',
+    circulo: 'c-tesoura',
+    image: 'popuptesoura',
+    text:
+      'TESOURA CORTA E PODE FURAR! SE FOR USAR TESOURA, CHAME UM ADULTO PARA TE ORIENTAR E, AO TERMINAR, DEIXE-A BEM GUARDADA! ÓTIMA OBSERVAÇÃO!'
   },
   {
-    name: 'hexagono',
-    label: 'hexágono',
-    path: 'hexagono-pequeno',
-    pathBig: 'hexagono-grande'
-  }
-]
-
-export const montagem = [
-  {
-    nome: 'cubo',
-    label: 'cubo',
-    artigo: 'o',
-    quantidade: 'um',
-    index: 0,
-    imgCompleta: 'cubo-inteiro',
-    imgMetade: 'metade-cubo',
-    imgMontado: 'cubo-plano',
-    imgPosition: {
-      scale: 'scale(0.75)',
-      y: '50px',
-      x: '0px'
-    },
-    imgPositionMontado: {
-      y: '50px',
-      x: '0px'
-    },
-    pecasQnt: 2,
-    pecasName: ['quadrado', 'quadrado'],
-    isComplete: false
-  },
-  {
-    nome: 'piramide-base-quadrada',
-    label: 'pirâmide de base quadrada',
-    artigo: 'a',
-    quantidade: 'uma',
-    index: 1,
-    imgCompleta: 'piramide-basequadrada-inteiro',
-    imgMetade: 'metade-piramidebasequad',
-    imgMontado: 'plano-piramidebasequad',
-    imgPosition: {
-      scale: 'scale(0.64)',
-      y: '144px',
-      x: '-48px'
-    },
-    imgPositionMontado: {
-      y: '48px',
-      x: '48px'
-    },
-    pecasQnt: 2,
-    pecasName: ['triangulo', 'triangulo'],
-    isComplete: false
-  },
-  {
-    nome: 'cilindro',
-    label: 'cilindro',
-    artigo: 'o',
-    quantidade: 'um',
-    index: 2,
-    imgCompleta: 'cilindro-inteiro',
-    imgMetade: 'metade-cilindro',
-    imgMontado: 'plano-cilindro',
-    imgPosition: {
-      scale: 'scale(0.73)',
-      y: '137px',
-      x: '0px'
-    },
-    imgPositionMontado: {
-      y: '60px',
-      x: '0px'
-    },
-    pecasQnt: 2,
-    pecasName: ['circulo', 'circulo'],
-    isComplete: false
-  },
-  {
-    nome: 'piramide-base-hexagonal',
-    artigo: 'a',
-    quantidade: 'uma',
-    label: 'pirâmide de base hexagonal',
-    index: 3,
-    imgCompleta: 'piramide-basehexagonal-inteiro',
-    imgMetade: 'metade-piramidebasehex',
-    imgMontado: 'plano-piramidebasehex',
-    imgPosition: {
-      scale: 'scale(0.78)',
-      y: '110px',
-      x: '0px'
-    },
-    imgPositionMontado: {
-      y: '23px',
-      x: '0px'
-    },
-    pecasQnt: 3,
-    pecasName: [
-      'triangulo-isosceles',
-      'triangulo-isosceles',
-      'triangulo-isosceles'
-    ],
-    isComplete: false
-  },
-  {
-    nome: 'prisma-base-pentagonal',
-    label: 'prisma de base pentagonal',
-    artigo: 'a',
-    quantidade: 'uma',
-    index: 4,
-    imgCompleta: 'prisma-basepentagonal-inteiro',
-    imgMetade: 'metade-prismabasepenta',
-    imgMontado: 'plano-prismabasepenta',
-    imgPosition: {
-      scale: 'scale(0.72)',
-      y: '99px',
-      x: '-78px'
-    },
-    imgPositionMontado: {
-      y: '41px',
-      x: '7px'
-    },
-    pecasQnt: 4,
-    pecasName: ['retangulo', 'retangulo', 'retangulo', 'pentagono'],
-    isComplete: false
+    id: 6,
+    name: 'tomada',
+    isFind: false,
+    title: 'TOMADA DESTAMPADA',
+    circulo: 'c-tomada',
+    image: 'popuptomada',
+    text:
+      'QUE PERIGO! UMA TOMADA DESTAMPADA PODE SER MOTIVO PARA CHOQUES! PEÇAM PARA OS ADULTOS COLOCAREM PROTEÇÕES EM TODAS AS TOMADAS DA CASA! BEM OBSERVADO!'
   }
 ]

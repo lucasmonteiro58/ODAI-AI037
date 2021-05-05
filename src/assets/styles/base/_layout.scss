@@ -1,3 +1,47 @@
 body {
   @include sprites($spritesheet-sprites);
 }
+
+.btn {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  box-shadow: 5px 4px 7px rgba(0, 0, 0, 0.25);
+  &.primary {
+    background-color: #f7c044;
+    width: 61px;
+    height: 67px;
+    &:hover {
+      background-color: #fcecc6;
+
+      .text,
+      .icon {
+        opacity: 0.5;
+      }
+    }
+  }
+  &.continuar {
+    background-color: #f7c044;
+    width: 138px;
+    height: 44px;
+    justify-content: center;
+
+    .text {
+      font-size: 17px;
+    }
+    // &:hover {
+    //   background-color: #fcecc6;
+
+    //   .text,
+    //   .icon {
+    //     opacity: 0.5;
+    //   }
+    // }
+  }
+  &.secondary {
+    background-color: #f86d66;
+  }
+}

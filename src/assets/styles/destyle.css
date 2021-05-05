@@ -68,7 +68,6 @@ button {
 
 /* Some defaults for one-liner buttons */
 button {
-  padding: 0.75em 1em;
   border-radius: 0;
   line-height: 1;
   cursor: pointer;
@@ -119,52 +118,23 @@ button:focus {
 }
 
 @font-face {
-  font-family: MavenPro;
-  src: url('../fonts/MavenPro.ttf');
+  font-family: MplusBold;
+  src: url('../fonts/RoundedMplus1c-ExtraBold.ttf');
 }
 
 @font-face {
-  font-family: MavenProBlack;
-  src: url('../fonts/MavenPro-Black.ttf');
-}
-
-@font-face {
-  font-family: MavenProBold;
-  src: url('../fonts/MavenPro-Bold.ttf');
-}
-
-@font-face {
-  font-family: MavenProRegular;
-  src: url('../fonts/MavenPro-Regular.ttf');
-}
-
-@font-face {
-  font-family: MavenProMedium;
-  src: url('../fonts/MavenPro-Medium.ttf');
-}
-
-@font-face {
-  font-family: MavenProBoldSemiBold;
-  src: url('../fonts/MavenPro-SemiBold.ttf');
-}
-
-@font-face {
-  font-family: MavenProBoldSemiBold;
-  src: url('../fonts/MavenPro-SemiBold.ttf');
-}
-
-@font-face {
-  font-family: MavenProBoldExtraBold;
-  src: url('../fonts/MavenPro-ExtraBold.ttf');
+  font-family: MplusRegular;
+  src: url('../fonts/RoundedMplus1c-Regular.ttf');
 }
 
 * {
-  font-family: MavenProBold;
-  color: #6c6c6c;
+  font-family: MplusBold;
+  color: #282828;
   text-transform: uppercase;
+  font-size: 13px;
 }
 
 b {
-  font-family: MavenProBlack;
+  font-family: MplusBold;
   color: #007ec4;
 }

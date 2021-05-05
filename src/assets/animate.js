@@ -17,8 +17,9 @@ export function fade(el, opacity, easing, callback) {
   })
 }
 
-export function translateAxisY(el, translateY, directionValue, newEasing) {
+export function translateAxisY(el, translateY, newEasing) {
   const easing = newEasing || 'spring(1, 70, 10, 5)'
+  console.log(el.offsetHeight)
 
   anime({
     targets: el,
@@ -31,11 +32,12 @@ export function translateAxisY(el, translateY, directionValue, newEasing) {
   })
 }
 
-export function translateFrom(el, directionValue, newEasing) {
-  const fromY = function(el, i) {
-    return [el.offsetHeight * directionValue, 0]
+export function translateFrom(el, directionValue, newEasing, callback) {
+  const fromY = function(el) {
+    const height = el.offsetHeight > 0 ? el.offsetHeight : 300
+    return [height * directionValue, 0]
   }
-  return translateAxisY(el, fromY, directionValue, newEasing)
+  return translateAxisY(el, fromY, newEasing, callback)
 }
 
 export function translateTo(el, directionValue, newEasing) {
