@@ -71,17 +71,17 @@ export default {
     }
 
     .text-ballon {
-      width: 431px;
+      width: 427px;
       text-align: center;
       position: absolute;
-      top: 30px;
+      top: 42px;
       left: 151px;
       .title {
         color: #000;
         font-size: 17px;
       }
       p {
-        font-family: MplusRegular;
+        font-weight: 500;
         font-size: 15px;
       }
     }

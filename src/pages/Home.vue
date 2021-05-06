@@ -2,26 +2,36 @@
   <section class="container">
     <div class="hero">
       <div class="top-bar">
+        <div v-if="showHelp" class="blocktop"></div>
         <button
-          class="btn primary z-index-opcoes"
+          class="btn btn-help-opcoes primary z-index-opcoes"
+          :class="'index-help' + indexHelp"
           @click.prevent="openPopUpOpcoes"
         >
           <div class="icon iconeopcoes"></div>
           <div class="text">Opções</div>
         </button>
-        <button class="btn primary">
+        <button
+          class="btn primary btn-help-opcoes"
+          :class="'index-help' + indexHelp"
+          @click.prevent="openHelp"
+        >
           <div class="icon iconeajuda"></div>
           <div class="text">Ajuda</div>
         </button>
         <div class="rect-roxo">
           <div class="logo-jogo-top"></div>
         </div>
-        <div class="rect-vermelho" :class="'color' + contErro">
+        <div
+          class="rect-vermelho"
+          :class="['color' + contErro, 'index-help' + indexHelp]"
+        >
           {{ contErro + '/7' }}
         </div>
       </div>
       <div class="stage-images">
         <div class="imagemprincipal"></div>
+        <div class="imagem-erro-erradas" @click.prevent="clickImageWrong"></div>
         <div class="container-erros">
           <div v-for="erro in erros" :key="erro.id">
             <div
@@ -50,7 +60,6 @@
       @voltar="closePopUpCongrats"
       @reiniciar="reiniciarGame"
     ></PopUpCongrats>
-    <Inicio v-if="showIniciar" @iniciar="iniciarClick"></Inicio>
     <PopUpOpcoes
       v-if="showPopUpOpcoes"
       :is-showed="showPopUpOpcoes"
@@ -65,6 +74,15 @@
       :is-showed="showPopUpCreditos"
       @close="closePopUpCreditos"
     ></PopUpCreditos>
+    <Help
+      v-if="showHelp"
+      :index="indexHelp"
+      :is-initial="initialHelp"
+      @close="closeHelp"
+      @voltar="voltarHelp"
+      @avancar="avancarHelp"
+    ></Help>
+    <Inicio v-if="showIniciar" @iniciar="iniciarClick"></Inicio>
   </section>
 </template>
 <script>
@@ -73,14 +91,18 @@ import PopUpErros from '../components/PopUpErros.vue'
 import Inicio from '../components/Inicio.vue'
 import { erros } from '../consts/home'
 import PopUpOpcoes from '../components/PopUpOpcoes.vue'
+import Help from '../components/Help.vue'
+import audios from '../mixins/audios'
 
 export default {
   components: {
     PopUpErros,
     PopUpCongrats,
     Inicio,
-    PopUpOpcoes
+    PopUpOpcoes,
+    Help
   },
+  mixins: [audios],
   data() {
     return {
       erros,
@@ -88,10 +110,13 @@ export default {
       showPopUpErro: false,
       showPopUpCongrats: false,
       showPopUpOpcoes: false,
-      showPopUpCreditos: true,
+      showPopUpCreditos: false,
+      showHelp: false,
       contErro: 0,
+      indexHelp: 0,
       preventClick: true,
-      showIniciar: true
+      showIniciar: true,
+      initialHelp: true
     }
   },
   computed: {
@@ -107,51 +132,94 @@ export default {
       if (this.preventClick) {
         this.preventClick = false
         el.isFind = true
+        if (this.soundState) this.audioCircle.play()
 
         setTimeout(() => {
           this.selectedErro = el
           this.showPopUpErro = true
           this.preventClick = true
-        }, 500)
+          if (this.soundState) this.audioPopUp.play()
+        }, 700)
       }
     },
+    avancarHelp() {
+      if (this.soundState) this.audioClick.play()
+      if (this.indexHelp === 2) {
+        this.showHelp = false
+        this.indexHelp = 0
+        this.initialHelp = false
+      } else {
+        this.indexHelp++
+      }
+    },
+    clickImageWrong() {
+      if (this.soundState) this.audioMissClick.play()
+    },
+    voltarHelp() {
+      if (this.soundState) this.audioClick.play()
+      this.indexHelp--
+    },
+    closeHelp() {
+      if (this.soundState) this.audioClick.play()
+      this.showHelp = false
+      this.initialHelp = false
+      this.indexHelp = 0
+    },
+    openHelp() {
+      if (this.soundState) this.audioClick.play()
+      this.showHelp = true
+    },
     goToIniciar() {
+      if (this.soundState) this.audioClick.play()
       this.showIniciar = true
       this.showPopUpOpcoes = false
       this.reiniciarGame()
     },
     iniciarClick() {
+      if (this.soundState) this.audioClick.play()
       this.showIniciar = false
+      this.showHelp = true
     },
     closePopUpErro() {
+      if (this.soundState) this.audioClick.play()
       this.showPopUpErro = false
       this.contErro++
       if (this.contErro === 7) {
-        this.showPopUpCongrats = true
+        setTimeout(() => {
+          if (this.soundState) this.audioWin.play()
+          this.showPopUpCongrats = true
+        }, 500)
       }
     },
     closePopUpOpcoes() {
+      if (this.soundState) this.audioClick.play()
       this.showPopUpOpcoes = false
     },
     openPopUpOpcoes() {
+      if (this.soundState) this.audioPopUp.play()
       this.showPopUpOpcoes = true
     },
     toogleSound() {
+      if (this.soundState) this.audioClick.play()
       this.$store.commit('changeSoundState', !this.soundState)
     },
     openCreditos() {
+      if (this.soundState) this.audioPopUp.play()
       this.showPopUpCreditos = true
       this.showPopUpOpcoes = false
     },
     closePopUpCreditos() {
+      if (this.soundState) this.audioClick.play()
       this.showPopUpCreditos = false
     },
     closePopUpCongrats() {
+      if (this.soundState) this.audioClick.play()
       this.showPopUpCongrats = false
     },
     reiniciarGame() {
       this.showPopUpCongrats = false
       this.contErro = 0
+      this.initialHelp = true
       this.erros = this.erros.map((el) => {
         el.isFind = false
         return el
@@ -164,6 +232,32 @@ export default {
 .container {
   @include flex-center;
   flex-direction: column;
+}
+
+.imagem-erro-erradas {
+  position: absolute;
+  width: 463px;
+  height: 579px;
+  top: 0;
+  left: 0;
+  background-color: #ffffff00;
+  cursor: pointer;
+}
+
+.blocktop {
+  position: absolute;
+  width: 300px;
+  height: 100px;
+  opacity: 0;
+  top: 0px;
+  left: 0px;
+  z-index: 12;
+}
+
+.btn-help-opcoes {
+  &.index-help2 {
+    z-index: 11;
+  }
 }
 
 .z-index-opcoes {
@@ -208,10 +302,14 @@ export default {
   width: 141px;
   height: 67px;
   border-radius: 17px;
-  font-size: 45px;
+  font-size: 54px;
+  padding-top: 6px;
   text-align: center;
-  background-color: #f86d66;
   z-index: 2;
+
+  &.index-help1 {
+    z-index: 11;
+  }
 
   &.color0 {
     background-color: #f86d66;

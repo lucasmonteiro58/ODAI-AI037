@@ -101,7 +101,7 @@ export default {
     .left-content {
       padding: 20px 0px 20px 20px;
       .title {
-        font-size: 22px;
+        font-size: 20px;
         line-height: 39px;
         text-align: center;
         color: #000000;
@@ -109,8 +109,8 @@ export default {
       }
       .text {
         font-size: 16px;
-        font-family: MplusRegular;
-        line-height: 22px;
+        font-weight: 500;
+        line-height: 20px;
       }
     }
     .right-content {

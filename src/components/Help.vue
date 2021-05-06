@@ -1,180 +1,164 @@
 <template>
-  <div class="help-container">
+  <section class="container">
     <div class="backdrop"></div>
-    <div class="fechar-tutorial" @click.prevent="closeHelp">
-      <p>Fechar Tutorial</p>
-      <div class="icon-fechar"></div>
+    <div class="image" :class="[helps[index].image, helps[index].class]"></div>
+    <div
+      class="text-ballon"
+      :class="helps[index].class"
+      v-html="textBallon"
+    ></div>
+    <div class="button-section" :class="helps[index].class">
+      <div class="top">
+        <button v-if="index !== 0" class="btn continuar" @click="voltarClick">
+          <div class="text">Voltar</div>
+        </button>
+        <button class="btn continuar" @click="avancarClick">
+          <div class="text">{{ nxtBtn }}</div>
+        </button>
+      </div>
+      <button class="btn close btn-fechar" @click.prevent="clickClose">
+        <div class="text">Fechar</div>
+      </button>
     </div>
-    <div class="text-tutorial" :class="classText">
-      {{ textAjudas[index] }}
-    </div>
-    <div class="button-section" :class="classText">
-      <div
-        class="btn icon-prev"
-        :class="{ disable: index === 0 }"
-        @click.prevent="prevClick"
-      ></div>
-      <div class="text">{{ index + 1 + ' de 3' }}</div>
-      <div class="btn" :class="classBotaoPass" @click.prevent="nextClick"></div>
-    </div>
-  </div>
+  </section>
 </template>
-
 <script>
+import { helps } from '../consts/help'
 export default {
-  name: 'Button',
   props: {
     index: {
       type: Number,
+      required: true
+    },
+    isInitial: {
+      type: Boolean,
       required: true
     }
   },
   data() {
     return {
-      textAjudas: [
-        '1.Observe a figura ao lado e complete as formas que faltam para completar a sua planificação.',
-        '2. Arraste as formas do painel ao lado para completar a figura no centro. Se precisar apagar, clique na lixeira.',
-        '3. Depois, clique em montar para conferir a sua resposta.'
-      ]
+      helps
     }
   },
   computed: {
-    classText() {
-      return 'ajuda' + this.index
+    nxtBtn() {
+      if (this.index === 2) return 'Vamos lá'
+      else return 'Avançar'
     },
-    classBotaoPass() {
-      if (this.index === 2) {
-        return 'icon-check-orange'
-      } else return 'icon-pass'
+    textBallon() {
+      if (this.isInitial) return this.helps[this.index].text
+      else return this.helps[this.index].textAfter
     }
   },
+  mounted() {},
   methods: {
-    prevClick() {
-      this.$emit('prevHelp')
+    voltarClick() {
+      this.$emit('voltar')
     },
-    nextClick() {
-      this.$emit('nextHelp')
+    clickClose() {
+      this.$emit('close')
     },
-    closeHelp() {
-      this.$emit('closeHelp')
+    avancarClick() {
+      this.$emit('avancar')
     }
   }
 }
 </script>
-
 <style lang="scss" scoped>
-.help-container {
-  width: 980px;
-  height: 720px;
+.container {
+  @include flex-center;
+  flex-direction: column;
   position: absolute;
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 10;
 
   .backdrop {
+    position: absolute;
+    background-color: #000000a1;
     width: 100%;
     height: 100%;
-    background-color: #000;
-    opacity: 0.7;
-    position: absolute;
-    top: 0;
-    left: 0;
   }
-  .fechar-tutorial {
-    position: absolute;
-    cursor: pointer;
-    z-index: 1010;
 
-    top: 20px;
-    right: 20px;
+  .image {
+    position: absolute;
+
+    &.class-help0 {
+      left: 40px;
+      top: 140px;
+    }
+
+    &.class-help1 {
+      left: 40px;
+      top: 21px;
+    }
+
+    &.class-help2 {
+      left: 53px;
+      top: 124px;
+    }
+  }
+
+  .text-ballon {
+    position: absolute;
+    text-align: center;
+    //background-color: rgba(0, 0, 255, 0.151);
+    line-height: 18px;
+    font-size: 15px;
+    font-weight: 500;
+
+    .text-bold {
+      font-weight: 1000;
+      color: #000;
+    }
+
+    &.class-help0 {
+      width: 334px;
+      left: 343px;
+      top: 182px;
+    }
+
+    &.class-help1 {
+      width: 403px;
+      left: 354px;
+      top: 86px;
+    }
+
+    &.class-help2 {
+      width: 361px;
+      left: 471px;
+      top: 250px;
+    }
+  }
+
+  .button-section {
+    position: absolute;
     display: flex;
     align-items: center;
-    p {
-      font-size: 26px;
-      color: white;
-      font-family: MavenProBlack;
-      opacity: 0.7;
+    justify-items: center;
+    flex-direction: column;
+    gap: 10px;
+
+    &.class-help0 {
+      left: 460px;
+      top: 310px;
     }
 
-    .icon-fechar {
-      opacity: 0.7;
-    }
-  }
-}
-
-.text-tutorial {
-  position: absolute;
-  color: white;
-  font-family: MavenProBlack;
-  text-transform: initial;
-  font-size: 26px;
-
-  &.ajuda0 {
-    width: 450px;
-    top: 260px;
-    left: 254px;
-  }
-
-  &.ajuda1 {
-    width: 537px;
-    top: 532px;
-    left: 302px;
-    text-align: center;
-  }
-
-  &.ajuda2 {
-    width: 487px;
-    top: 463px;
-    left: 447px;
-    text-align: center;
-  }
-}
-
-.button-section {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  width: 220px;
-  justify-content: space-between;
-
-  .btn {
-    cursor: pointer;
-    z-index: 1010;
-
-    &:hover {
-      transform: scale(1.02);
+    &.class-help1 {
+      left: 475px;
+      top: 229px;
     }
 
-    &.disable {
-      cursor: initial;
-      opacity: 0.5;
-
-      &:hover {
-        transform: scale(1);
-      }
+    &.class-help2 {
+      left: 579px;
+      top: 402px;
     }
-  }
-
-  &.ajuda0 {
-    top: 392px;
-    left: 252px;
-  }
-
-  &.ajuda1 {
-    top: 642px;
-    left: 446px;
-  }
-
-  &.ajuda2 {
-    top: 546px;
-    left: 583px;
-  }
-
-  .text {
-    color: white;
-    font-family: MavenProBlack;
-    text-transform: initial;
-    font-size: 26px;
+    .top {
+      display: flex;
+      gap: 12px;
+    }
   }
 }
 </style>

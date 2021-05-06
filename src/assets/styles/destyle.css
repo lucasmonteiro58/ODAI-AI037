@@ -118,23 +118,20 @@ button:focus {
 }
 
 @font-face {
-  font-family: MplusBold;
-  src: url('../fonts/RoundedMplus1c-ExtraBold.ttf');
-}
-
-@font-face {
-  font-family: MplusRegular;
-  src: url('../fonts/RoundedMplus1c-Regular.ttf');
+  font-family: Confortaa;
+  src: url('../fonts/Comfortaa-VariableFont_wght.ttf');
 }
 
 * {
-  font-family: MplusBold;
+  font-family: Confortaa;
   color: #282828;
   text-transform: uppercase;
   font-size: 13px;
+  font-weight: 1000;
 }
 
 b {
-  font-family: MplusBold;
+  font-family: Confortaa;
   color: #007ec4;
+  font-weight: 1000;
 }
