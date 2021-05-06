@@ -58,7 +58,7 @@
     <PopUpCongrats
       v-if="showPopUpCongrats"
       @voltar="closePopUpCongrats"
-      @reiniciar="reiniciarGame"
+      @reiniciar="clickReiniciarGame"
     ></PopUpCongrats>
     <PopUpOpcoes
       v-if="showPopUpOpcoes"
@@ -138,7 +138,9 @@ export default {
           this.selectedErro = el
           this.showPopUpErro = true
           this.preventClick = true
-          if (this.soundState) this.audioPopUp.play()
+          setTimeout(() => {
+            if (this.soundState) this.audioPopUp.play()
+          }, 500)
         }, 700)
       }
     },
@@ -175,6 +177,10 @@ export default {
       this.showPopUpOpcoes = false
       this.reiniciarGame()
     },
+    clickReiniciarGame() {
+      if (this.soundState) this.audioClick.play()
+      this.reiniciarGame()
+    },
     iniciarClick() {
       if (this.soundState) this.audioClick.play()
       this.showIniciar = false
@@ -196,7 +202,10 @@ export default {
       this.showPopUpOpcoes = false
     },
     openPopUpOpcoes() {
-      if (this.soundState) this.audioPopUp.play()
+      if (this.soundState) this.audioClick.play()
+      setTimeout(() => {
+        if (this.soundState) this.audioPopUp.play()
+      }, 500)
       this.showPopUpOpcoes = true
     },
     toogleSound() {
@@ -204,7 +213,10 @@ export default {
       this.$store.commit('changeSoundState', !this.soundState)
     },
     openCreditos() {
-      if (this.soundState) this.audioPopUp.play()
+      if (this.soundState) this.audioClick.play()
+      setTimeout(() => {
+        if (this.soundState) this.audioPopUp.play()
+      }, 500)
       this.showPopUpCreditos = true
       this.showPopUpOpcoes = false
     },

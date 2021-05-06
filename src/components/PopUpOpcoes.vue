@@ -1,6 +1,6 @@
 <template>
   <div v-show="showed" class="pop-up">
-    <div class="backdrop"></div>
+    <div class="backdrop" @click.prevent="clickClose"></div>
     <div class="content">
       <div class="top">
         <button class="btn primary" @click.prevent="clickInicio">
