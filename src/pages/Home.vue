@@ -2,7 +2,7 @@
   <section class="container">
     <div class="hero">
       <div class="top-bar">
-        <button class="btn primary">
+        <button class="btn primary z-index-opcoes">
           <div class="icon iconeopcoes"></div>
           <div class="text">Opções</div>
         </button>
@@ -47,14 +47,16 @@
       @voltar="closePopUpCongrats"
       @reiniciar="reiniciarGame"
     ></PopUpCongrats>
+    <Inicio v-if="showIniciar" @iniciar="iniciarClick"></Inicio>
   </section>
 </template>
 <script>
 import PopUpCongrats from '../components/PopUpCongrats.vue'
 import PopUpErros from '../components/PopUpErros.vue'
+import Inicio from '../components/Inicio.vue'
 import { erros } from '../consts/home'
 export default {
-  components: { PopUpErros, PopUpCongrats },
+  components: { PopUpErros, PopUpCongrats, Inicio },
   data() {
     return {
       erros,
@@ -62,7 +64,8 @@ export default {
       showPopUpErro: false,
       showPopUpCongrats: false,
       contErro: 0,
-      preventClick: true
+      preventClick: true,
+      showIniciar: true
     }
   },
   mounted() {
@@ -80,6 +83,9 @@ export default {
           this.preventClick = true
         }, 500)
       }
+    },
+    iniciarClick() {
+      this.showIniciar = false
     },
     closePopUpErro() {
       this.showPopUpErro = false
@@ -106,6 +112,10 @@ export default {
 .container {
   @include flex-center;
   flex-direction: column;
+}
+
+.z-index-opcoes {
+  z-index: 4;
 }
 
 .hero {

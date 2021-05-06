@@ -44,6 +44,25 @@ body {
     //   }
     // }
   }
+  &.iniciar {
+    background-color: #c7b2ce;
+    width: 221px;
+    height: 70px;
+    justify-content: center;
+
+    .text {
+      font-size: 36px;
+    }
+    &:hover {
+      background-color: #eee8f0;
+
+      .text,
+      .icon {
+        opacity: 0.5;
+      }
+    }
+  }
+
   &.secondary {
     background-color: #f86d66;
   }
