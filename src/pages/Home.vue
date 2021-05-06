@@ -13,7 +13,7 @@
         <div class="rect-roxo">
           <div class="logo-jogo-top"></div>
         </div>
-        <div class="rect-vermelho">
+        <div class="rect-vermelho" :class="'color' + contErro">
           {{ contErro + '/7' }}
         </div>
       </div>
@@ -42,7 +42,11 @@
       :erro="selectedErro"
       @close="closePopUpErro"
     ></PopUpErros>
-    <PopUpCongrats></PopUpCongrats>
+    <PopUpCongrats
+      v-if="showPopUpCongrats"
+      @voltar="closePopUpCongrats"
+      @reiniciar="reiniciarGame"
+    ></PopUpCongrats>
   </section>
 </template>
 <script>
@@ -56,7 +60,9 @@ export default {
       erros,
       selectedErro: erros[0],
       showPopUpErro: false,
-      contErro: 0
+      showPopUpCongrats: false,
+      contErro: 0,
+      preventClick: true
     }
   },
   mounted() {
@@ -64,13 +70,34 @@ export default {
   },
   methods: {
     clickErro(el) {
-      this.selectedErro = el
-      this.showPopUpErro = true
-      el.isFind = true
+      if (this.preventClick) {
+        this.preventClick = false
+        el.isFind = true
+
+        setTimeout(() => {
+          this.selectedErro = el
+          this.showPopUpErro = true
+          this.preventClick = true
+        }, 500)
+      }
     },
     closePopUpErro() {
       this.showPopUpErro = false
       this.contErro++
+      if (this.contErro === 7) {
+        this.showPopUpCongrats = true
+      }
+    },
+    closePopUpCongrats() {
+      this.showPopUpCongrats = false
+    },
+    reiniciarGame() {
+      this.showPopUpCongrats = false
+      this.contErro = 0
+      this.erros = this.erros.map((el) => {
+        el.isFind = false
+        return el
+      })
     }
   }
 }
@@ -101,6 +128,7 @@ export default {
   position: relative;
   display: flex;
   justify-content: center;
+
   .logo-jogo-top {
     position: absolute;
     bottom: -5px;
@@ -118,9 +146,35 @@ export default {
   width: 141px;
   height: 67px;
   border-radius: 17px;
-  background-color: $vermelho;
   font-size: 45px;
   text-align: center;
+  background-color: #f86d66;
+  z-index: 2;
+
+  &.color0 {
+    background-color: #f86d66;
+  }
+  &.color1 {
+    background-color: #f89e52;
+  }
+  &.color2 {
+    background-color: #f7c044;
+  }
+  &.color3 {
+    background-color: #f6e335;
+  }
+  &.color4 {
+    background-color: #cee642;
+  }
+  &.color5 {
+    background-color: #97e657;
+  }
+  &.color6 {
+    background-color: #55e56f;
+  }
+  &.color7 {
+    background-color: #55e5ae;
+  }
 }
 
 .stage-images {

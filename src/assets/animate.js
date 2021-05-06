@@ -19,7 +19,6 @@ export function fade(el, opacity, easing, callback) {
 
 export function translateAxisY(el, translateY, newEasing) {
   const easing = newEasing || 'spring(1, 70, 10, 5)'
-  console.log(el.offsetHeight)
 
   anime({
     targets: el,

@@ -1,6 +1,6 @@
 <template>
   <div v-show="showed" class="pop-up">
-    <div class="backdrop" @click.prevent="closeErros"></div>
+    <div class="backdrop"></div>
     <div class="content">
       <div class="left-content">
         <div class="title">{{ erro.title }}</div>
