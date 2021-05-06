@@ -58,7 +58,13 @@
       @close="closePopUpOpcoes"
       @inicio="goToIniciar"
       @som="toogleSound"
+      @creditos="openCreditos"
     ></PopUpOpcoes>
+    <PopUpCreditos
+      v-if="showPopUpCreditos"
+      :is-showed="showPopUpCreditos"
+      @close="closePopUpCreditos"
+    ></PopUpCreditos>
   </section>
 </template>
 <script>
@@ -82,6 +88,7 @@ export default {
       showPopUpErro: false,
       showPopUpCongrats: false,
       showPopUpOpcoes: false,
+      showPopUpCreditos: true,
       contErro: 0,
       preventClick: true,
       showIniciar: true
@@ -132,7 +139,13 @@ export default {
     toogleSound() {
       this.$store.commit('changeSoundState', !this.soundState)
     },
-    openCreditos() {},
+    openCreditos() {
+      this.showPopUpCreditos = true
+      this.showPopUpOpcoes = false
+    },
+    closePopUpCreditos() {
+      this.showPopUpCreditos = false
+    },
     closePopUpCongrats() {
       this.showPopUpCongrats = false
     },

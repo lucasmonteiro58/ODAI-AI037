@@ -1,7 +1,11 @@
 <template>
   <div v-show="showed" class="pop-up">
-    <div class="backdrop"></div>
-    <div class="content"></div>
+    <div class="backdrop" @click.prevent="clickClose"></div>
+    <div class="content">
+      <button class="btn close btn-fechar" @click.prevent="clickClose">
+        <div class="text">Fechar</div>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -41,6 +45,9 @@ export default {
   methods: {
     showAnimation() {
       fromTop(this.$el.lastChild)
+    },
+    clickClose() {
+      this.$emit('close')
     }
   }
 }
@@ -67,7 +74,20 @@ export default {
   }
 
   .content {
-    width: 20px;
+    width: 400px;
+    height: 300px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    background: #ede0b0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .btn-fechar {
+      position: absolute;
+      bottom: -37px;
+    }
   }
 }
 </style>
