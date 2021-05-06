@@ -2,7 +2,10 @@
   <section class="container">
     <div class="hero">
       <div class="top-bar">
-        <button class="btn primary z-index-opcoes">
+        <button
+          class="btn primary z-index-opcoes"
+          @click.prevent="openPopUpOpcoes"
+        >
           <div class="icon iconeopcoes"></div>
           <div class="text">Opções</div>
         </button>
@@ -48,6 +51,14 @@
       @reiniciar="reiniciarGame"
     ></PopUpCongrats>
     <Inicio v-if="showIniciar" @iniciar="iniciarClick"></Inicio>
+    <PopUpOpcoes
+      v-if="showPopUpOpcoes"
+      :is-showed="showPopUpOpcoes"
+      :sound-state="soundState"
+      @close="closePopUpOpcoes"
+      @inicio="goToIniciar"
+      @som="toogleSound"
+    ></PopUpOpcoes>
   </section>
 </template>
 <script>
@@ -55,17 +66,30 @@ import PopUpCongrats from '../components/PopUpCongrats.vue'
 import PopUpErros from '../components/PopUpErros.vue'
 import Inicio from '../components/Inicio.vue'
 import { erros } from '../consts/home'
+import PopUpOpcoes from '../components/PopUpOpcoes.vue'
+
 export default {
-  components: { PopUpErros, PopUpCongrats, Inicio },
+  components: {
+    PopUpErros,
+    PopUpCongrats,
+    Inicio,
+    PopUpOpcoes
+  },
   data() {
     return {
       erros,
       selectedErro: erros[0],
       showPopUpErro: false,
       showPopUpCongrats: false,
+      showPopUpOpcoes: false,
       contErro: 0,
       preventClick: true,
       showIniciar: true
+    }
+  },
+  computed: {
+    soundState() {
+      return this.$store.state.soundState
     }
   },
   mounted() {
@@ -84,6 +108,11 @@ export default {
         }, 500)
       }
     },
+    goToIniciar() {
+      this.showIniciar = true
+      this.showPopUpOpcoes = false
+      this.reiniciarGame()
+    },
     iniciarClick() {
       this.showIniciar = false
     },
@@ -94,6 +123,16 @@ export default {
         this.showPopUpCongrats = true
       }
     },
+    closePopUpOpcoes() {
+      this.showPopUpOpcoes = false
+    },
+    openPopUpOpcoes() {
+      this.showPopUpOpcoes = true
+    },
+    toogleSound() {
+      this.$store.commit('changeSoundState', !this.soundState)
+    },
+    openCreditos() {},
     closePopUpCongrats() {
       this.showPopUpCongrats = false
     },
